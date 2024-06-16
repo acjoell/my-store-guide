@@ -1,0 +1,14 @@
+{
+  "name": "my-store",
+  "version": "1.0.0",
+  "module": "index.js",
+  "scripts": {
+    "dev": "node --env-file .env --watch index.js",
+    "lint": "bun oxlint"
+  },
+  "devDependencies": {
+    "oxlint": "0.4.4",
+    "prettier": "3.3.2"
+  },
+  "dependencies": { "express": "4.19.2" }
+}
