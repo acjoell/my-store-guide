@@ -10,9 +10,37 @@ APP.get('/', (req, res) => {
 })
 
 APP.get('/productos', (req, res) => {
+  res.json([
+    {
+      nombre: "Producto 1",
+      precio: 1000
+    },
+    {
+      nombre: "Producto 2",
+      precio: 2000
+    },
+    {
+      nombre: "Producto 3",
+      precio: 3000
+    }
+  ])
+})
+
+APP.get('/productos/:prodId', (req, res) => {
+  // const id = req.params.prodId
+  const { prodId } = req.params
   res.json({
-    nombre: "Producto 1",
-    precio: 1000
+    prodId,
+    name: 'Producto 2',
+    precio: 2000
+  })
+})
+
+APP.get('/categorias/:catId/productos/:prodId', (req, res) => {
+  const { catId, prodId } = req.params
+  res.json({
+    catId,
+    prodId
   })
 })
 
