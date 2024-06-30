@@ -37,4 +37,30 @@ router.get('/:prodId', (req, res) => {
   })
 })
 
+router.post('/', (req, res) => {
+  const body = req.body
+  res.json({
+    message: 'product created',
+    data: body
+  })
+})
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params
+  const body = req.body
+  res.json({
+    id,
+    message: 'product updated',
+    data: body
+  })
+})
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params
+  res.json({
+    id,
+    message: 'product deleted'
+  })
+})
+
 module.exports = router
