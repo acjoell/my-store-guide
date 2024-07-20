@@ -30,11 +30,19 @@ router.get('/filter', (req, res) => {
 router.get('/:prodId', (req, res) => {
   // const id = req.params.prodId
   const { prodId } = req.params
-  res.json({
-    prodId,
-    name: 'product 2',
-    precio: 2000
-  })
+  if(prodId === '0') {
+    // res.statusCode = 404
+    res.status('404').json({
+      prodId,
+      name: 'product not found',
+    })
+  } else {
+    res.json({
+      prodId,
+      name: 'product 2',
+      precio: 2000
+    })
+  }
 })
 
 router.post('/', (req, res) => {
