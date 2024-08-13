@@ -6,8 +6,7 @@ const service = new ProductsService()
 
 // /products
 router.get('/', async (req, res) => {
-  const { size } = req.query;
-  const products = await service.find(size)
+  const products = await service.find()
   res.json({size: products.length, products})
 })  
 
@@ -15,6 +14,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params
   const product = await service.findOne(id)
+  
   if (product) {
     res.json(product);
   } else {
@@ -25,10 +25,10 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const body = req.body
   const newOne = await service.create(body)
-  res.json({
+
+  res.status(201).json({
     message: 'product created',
-    data: newOne,
-    status: 201
+    data: newOne
   })
 })
 
@@ -37,6 +37,7 @@ router.patch('/:id', async (req, res) => {
     const { id } = req.params
     const body = req.body
     const product = await service.update(id, body)
+    
     res.json({
       message: 'product updated',
       data: product
