@@ -1,74 +1,51 @@
 const express = require('express')
-const { faker } = require('@faker-js/faker')
+const ProductsService = require('./../services/product.service')
 
 const router = express.Router()
+const service = new ProductsService()
 
 // /products
 router.get('/', (req, res) => {
-  const products = []
+  const { size } = req.query;
+  const products = service.find(size)
+  res.json({size: products.length, products})
+})  
 
-  const { size } = req.query
-  const limit = size || 10
-
-  for (let i = 0; i < limit; i++) {
-    products.push({
-      name: faker.commerce.product(),
-      price: faker.commerce.price({ min: 1000, max: 20000 }),
-      image: faker.image.url()
-    })
-  }
-
-  res.json(products)
-})
-
-// /products/filter
-router.get('/filter', (req, res) => {
-  res.send()
-})
-
-// /products/:prodId
-router.get('/:prodId', (req, res) => {
-  // const id = req.params.prodId
-  const { prodId } = req.params
-  if(prodId === '0') {
-    // res.statusCode = 404
-    res.status('404').json({
-      prodId,
-      name: 'product not found',
-    })
+// /products/:id
+router.get('/:id', (req, res) => {
+  const { id } = req.params
+  const product = service.findOne(id)
+  if (product) {
+    res.json(product);
   } else {
-    res.json({
-      prodId,
-      name: 'product 2',
-      precio: 2000
-    })
+    res.status(404).json({ message: 'Product not found' });
   }
 })
 
 router.post('/', (req, res) => {
   const body = req.body
+  const newOne = service.create(body)
   res.json({
     message: 'product created',
-    data: body
+    data: newOne,
+    status: 201
   })
 })
 
 router.patch('/:id', (req, res) => {
   const { id } = req.params
   const body = req.body
+  const product = service.update(id, body)
   res.json({
-    id,
     message: 'product updated',
-    data: body
+    data: product
   })
 })
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params
-  res.json({
-    id,
-    message: 'product deleted'
-  })
+  const action = service.delete(id)
+  res.json(action)
 })
 
 module.exports = router
