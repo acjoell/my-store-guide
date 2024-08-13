@@ -22,6 +22,7 @@ class CategoriesService {
       ...data,
       image: faker.image.url(),
     };
+
     this.categories.push(newOne);
     return newOne;
   }
@@ -29,9 +30,9 @@ class CategoriesService {
   find() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(this.categories)
+        resolve(this.categories);
       }, 2000);
-    })
+    });
   }
 
   async findOne(id) {
