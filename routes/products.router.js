@@ -11,14 +11,18 @@ router.get('/', async (req, res) => {
 })  
 
 // /products/:id
-router.get('/:id', async (req, res) => {
-  const { id } = req.params
-  const product = await service.findOne(id)
-  
-  if (product) {
-    res.json(product);
-  } else {
-    res.status(404).json({ message: 'Product not found' });
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const product = await service.findOne(id)
+
+    if (product) {
+      res.json(product);
+    } else {
+      res.status(404).json({ message: 'Product not found' });
+    }
+  } catch (error) {
+    next(error)
   }
 })
 
