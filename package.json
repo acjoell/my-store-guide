@@ -11,5 +11,5 @@
     "oxlint": "0.4.4",
     "prettier": "3.3.2"
   },
-  "dependencies": { "express": "4.19.2" }
+  "dependencies": { "@hapi/boom": "^10.0.1", "express": "4.19.2" }
 }

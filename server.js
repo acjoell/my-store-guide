@@ -1,6 +1,6 @@
 const express = require('express')
 const routerAPI = require('./routes')
-const { logErrors, errorHandler } = require('./middlewares/error.handler')
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler')
 
 // creamos APP
 const APP = express()
@@ -16,6 +16,7 @@ APP.get('/', (req, res) => {
 routerAPI(APP)
 
 APP.use(logErrors)
+APP.use(boomErrorHandler)
 APP.use(errorHandler)
 
 APP.listen(PORT, () => {
