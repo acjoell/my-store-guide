@@ -10,7 +10,8 @@ class ProductsService {
   generate() {
     for (let i = 0; i < 20; i++) {
       this.products.push({
-        id:     faker.string.nanoid(6),
+        //id:     faker.string.nanoid(6),
+        id:     faker.string.uuid(),
         name:   faker.commerce.product(),
         price:  faker.commerce.price({ min: 1000, max: 20000 }),
         image:  faker.image.url(),
@@ -21,7 +22,8 @@ class ProductsService {
 
   async create(data) {
     const newOne = {
-      id:     faker.string.nanoid(6),
+      //id:     faker.string.nanoid(6),
+      id:     faker.string.uuid(),
       ...data
     }
     this.products.push(newOne)
