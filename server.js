@@ -5,7 +5,7 @@ const cors = require('cors')
 
 // creamos APP
 const APP = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 // middleware: recibimos datos
 APP.use(express.json())
