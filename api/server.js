@@ -2,6 +2,7 @@ const express = require('express')
 const routerAPI = require('./routes')
 const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler')
 const cors = require('cors')
+const path = require('path')
 
 // creamos APP
 const APP = express()
@@ -23,8 +24,12 @@ const options = {
 }
 APP.use(cors(options))
 
+APP.get('/', (req, res) => {
+  res.send('<h1><a href="/api">Empezar</a></h1>')
+})
+
 APP.get('/api', (req, res) => {
-  res.send('Hola mundo')
+  res.sendFile(path.join(__dirname, 'public', 'index.html')); // Specify the path to your index.html
 })
 
 routerAPI(APP)
