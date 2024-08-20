@@ -3,12 +3,328 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Documentación</title>
 </head>
 <body>
+  <h1 id="documentación-de-la-api">Documentación de la API</h1>
+  <h2 id="descripción-general">Descripción General</h2>
+  <p><strong>Nombre del Proyecto:</strong> My Store<br><strong>Versión:</strong> 1.0.0<br><strong>Descripción:</strong> Esta API proporciona servicios para gestionar una tienda en línea. Permite manejar categorías, productos y usuarios, ofreciendo operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para cada entidad.</p>
+  <hr>
+  <h2 id="instalación-y-configuración">Instalación y Configuración</h2>
+  <ol>
+  <li><p><strong>Clonar el repositorio:</strong></p>
+  <pre><code class="language-bash">git clone git@github.com:acjoell/my-store-guide.git
+  cd my-store
+  </code></pre>
+  </li>
+  <li><p><strong>Instalar las dependencias:</strong></p>
+  <pre><code class="language-bash">  bun install
+  </code></pre>
+  </li>
+  <li><p><strong>Configurar variables de entorno (Opcional):</strong></p>
+  <pre><code class="language-makefile"> PORT=3000
+  </code></pre>
+  </li>
+  <li><p><strong>Para correr:</strong></p>
+  <pre><code class="language-makefile"> bun run dev
+  </code></pre>
+  </li>
+  </ol>
+  <br>
+  
+  <hr>
+  <h2 id="rutas-de-la-api">Rutas de la API</h2>
+  <h3 id="ruta-principal">Ruta Principal</h3>
+  <ul>
+  <li><p><strong>GET /api</strong></p>
+  <pre><code class="language-txt"> GET /api
+  </code></pre>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json"> &quot;Hola mundo&quot;
+  </code></pre>
+  </li>
+  </ul>
+  <h3 id="rutas">Rutas</h3>
+  <details>
+    <summary>Products</summary>
+    <br>
+  
+  <ul>
+  <li><p><strong>GET /api/products</strong><br>
+  <strong>Descripción:</strong> Obtiene la lista de productos.</p>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">[
+    {
+      &quot;id&quot;: &quot;a6de67a3-ed17-41b4-97a8-d0ae78415732&quot;,
+      &quot;name&quot;: &quot;Fish&quot;,
+      &quot;price&quot;: &quot;5441.00&quot;,
+      &quot;image&quot;: &quot;https://loremflickr.com/640/480?lock=2316812351963136&quot;,
+      &quot;isBlock&quot;: false
+    },
+  ]
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>POST /api/products</strong> <br>
+  <strong>Descripción:</strong> Crea un nuevo producto.</p>
+  <p><strong>Cuerpo de la solicitud:</strong></p>
+  <pre><code class="language-json">{
+    &quot;name&quot;: &quot;New Product&quot;,
+    &quot;price&quot;: 15000,
+    &quot;image&quot;: &quot;https://picsum.photos/seed/3w8cM/640/480&quot;,
+    &quot;isBlock&quot;: false,
+  }
+  </code></pre>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;message&quot;: &quot;product created&quot;,
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;fea6bbdb-7d46-4948-8540-78f676db55cb&quot;,
+      &quot;name&quot;: &quot;New Product&quot;,
+      &quot;price&quot;: 15000,
+      &quot;image&quot;: &quot;https://picsum.photos/seed/3w8cM/640/480&quot;,
+      &quot;isBlock&quot;: false
+    }
+  }
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>PATCH /api/products/:id</strong> <br>
+  <strong>Descripción:</strong> Actualiza un producto existente.</p>
+  <p><strong>Cuerpo de la solicitud:</strong></p>
+  <pre><code class="language-json">{
+    &quot;name&quot;: &quot;New_Product&quot;,
+    &quot;price&quot;: 20000
+  }
+  </code></pre>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;message&quot;: &quot;product updated&quot;,
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;fea6bbdb-7d46-4948-8540-78f676db55cb&quot;,
+      &quot;name&quot;: &quot;New_Product&quot;,
+      &quot;price&quot;: 20000,
+      &quot;image&quot;: &quot;https://picsum.photos/seed/3w8cM/640/480&quot;,
+      &quot;isBlock&quot;: false
+    }
+  }
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>DELETE /api/products/:id</strong> <br>
+  <strong>Descripción:</strong> Elimina un producto.</p>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;id&quot;: &quot;a079cdca-09d8-4735-af37-d26b48865aa8&quot;,
+    &quot;message&quot;: &quot;product deleted&quot;
+  }    
+  </code></pre>
+  </li>
+  </ul>
+  </details>
+  
+  <details>
+    <summary>Categories</summary>
+    <br>
+  
+  <ul>
+  <li><p><strong>GET /api/categories</strong><br>
+  <strong>Descripción:</strong> Obtiene la lista de categorías.</p>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">[
+    {
+      &quot;id&quot;: &quot;abc123&quot;,
+      &quot;name&quot;: &quot;Electronics&quot;,
+      &quot;image&quot;: &quot;https://loremflickr.com/640/480?lock=2316812351963136&quot;
+    },
+  ]
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>POST /api/categories</strong> <br>
+  <strong>Descripción:</strong> Crea una nueva categoría.</p>
+  <p><strong>Cuerpo de la solicitud:</strong></p>
+  <pre><code class="language-json">{
+    &quot;name&quot;: &quot;New Category&quot;,
+    &quot;image&quot;: &quot;https://picsum.photos/seed/4a7cM/640/480&quot;
+  }
+  </code></pre>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;message&quot;: &quot;category created&quot;,
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;def456&quot;,
+      &quot;name&quot;: &quot;New Category&quot;,
+      &quot;image&quot;: &quot;https://picsum.photos/seed/4a7cM/640/480&quot;
+    }
+  }
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>PATCH /api/categories/:id</strong> <br>
+  <strong>Descripción:</strong> Actualiza una categoría existente.</p>
+  <p><strong>Cuerpo de la solicitud:</strong></p>
+  <pre><code class="language-json">{
+    &quot;name&quot;: &quot;Updated Category Name&quot;
+  }
+  </code></pre>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;message&quot;: &quot;category updated&quot;,
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;def456&quot;,
+      &quot;name&quot;: &quot;Updated Category Name&quot;,
+      &quot;image&quot;: &quot;https://picsum.photos/seed/4a7cM/640/480&quot;
+    }
+  }
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+    
+  <ul>
+  <li><p><strong>DELETE /api/categories/:id</strong> <br>
+  <strong>Descripción:</strong> Elimina una categoría.</p>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;id&quot;: &quot;def456&quot;,
+    &quot;message&quot;: &quot;category deleted&quot;
+  }
+  </code></pre>
+  </li>
+  </ul>
+  </details>
+  
+  <details>
+    <summary>Users</summary>
+    <br>
+  
+  <ul>
+  <li><p><strong>GET /api/users</strong><br>
+  <strong>Descripción:</strong> Obtiene la lista de usuarios.</p>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">[
+    {
+      &quot;id&quot;: &quot;f58c5b91-4e5a-4d4a-8d73-71c24a71f6a0&quot;,
+      &quot;name&quot;: &quot;John&quot;,
+      &quot;lastName&quot;: &quot;Doe&quot;,
+      &quot;bio&quot;: &quot;Lorem ipsum dolor sit amet.&quot;,
+      &quot;job&quot;: &quot;Software Engineer&quot;
+    },
+  ]
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>POST /api/users</strong> <br>
+  <strong>Descripción:</strong> Crea un nuevo usuario.</p>
+  <p><strong>Cuerpo de la solicitud:</strong></p>
+  <pre><code class="language-json">{
+    &quot;name&quot;: &quot;Jane&quot;,
+    &quot;lastName&quot;: &quot;Doe&quot;,
+    &quot;bio&quot;: &quot;A passionate developer.&quot;,
+    &quot;job&quot;: &quot;Product Manager&quot;
+  }
+  </code></pre>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;message&quot;: &quot;user created&quot;,
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;g56d4d34-8d6b-4e77-b13c-8b54e1e576e0&quot;,
+      &quot;name&quot;: &quot;Jane&quot;,
+      &quot;lastName&quot;: &quot;Doe&quot;,
+      &quot;bio&quot;: &quot;A passionate developer.&quot;,
+      &quot;job&quot;: &quot;Product Manager&quot;
+    }
+  }
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>PATCH /api/users/:id</strong> <br>
+  <strong>Descripción:</strong> Actualiza un usuario existente.</p>
+  <p><strong>Cuerpo de la solicitud:</strong></p>
+  <pre><code class="language-json">{
+    &quot;bio&quot;: &quot;An experienced developer.&quot;,
+    &quot;job&quot;: &quot;Lead Developer&quot;
+  }
+  </code></pre>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;message&quot;: &quot;user updated&quot;,
+    &quot;data&quot;: {
+      &quot;id&quot;: &quot;g56d4d34-8d6b-4e77-b13c-8b54e1e576e0&quot;,
+      &quot;name&quot;: &quot;Jane&quot;,
+      &quot;lastName&quot;: &quot;Doe&quot;,
+      &quot;bio&quot;: &quot;An experienced developer.&quot;,
+      &quot;job&quot;: &quot;Lead Developer&quot;
+    }
+  }
+  </code></pre>
+  </li>
+  </ul>
+    <br>
+  
+  <ul>
+  <li><p><strong>DELETE /api/users/:id</strong> <br>
+  <strong>Descripción:</strong> Elimina un usuario.</p>
+  <p><strong>Respuesta:</strong></p>
+  <pre><code class="language-json">{
+    &quot;id&quot;: &quot;g56d4d34-8d6b-4e77-b13c-8b54e1e576e0&quot;,
+    &quot;message&quot;: &quot;user deleted&quot;
+  }
+  </code></pre>
+  </li>
+  </ul>
+  </details>
+  
+  <hr>
+  <h2 id="manejo-de-errores">Manejo de Errores</h2>
+  <p>La API utiliza los siguientes middlewares para el manejo de errores:</p>
+  <ul>
+  <li><strong>logErrors</strong>: Registra errores para su posterior análisis.</li>
+  <li><strong>boomErrorHandler</strong>: Maneja errores con formato Boom.</li>
+  <li><strong>errorHandler</strong>: Maneja errores generales y envía una respuesta adecuada al cliente.</li>
+  </ul>
+  <br>
+  
+  <hr>
+  <h2 id="estructura-del-proyecto">Estructura del Proyecto</h2>
+  <h3 id="archivos-principales">Archivos Principales</h3>
+  <ul>
+  <li><strong>server.js</strong>: Configura y arranca el servidor Express, define middlewares globales, y configura rutas.</li>
+  <li><strong>package.json</strong>: Contiene información del proyecto y dependencias.</li>
+  </ul>
+  <h3 id="carpetas">Carpetas</h3>
+  <ul>
+  <li><strong>api/routes</strong>: Define las rutas de la API (e.g., categories.router.js, products.router.js, users.router.js).</li>
+  <li><strong>api/schemas</strong>: Contiene los esquemas de datos (e.g., product.schema.js).</li>
+  <li><strong>api/services</strong>: Implementa la lógica de negocio (e.g., categories.service.js, product.service.js, users.service.js).</li>
+  <li><strong>api/middlewares</strong>: Contiene middlewares personalizados para manejar errores y validaciones (e.g., error.handler.js, validator.handler.js).</li>
+  </ul>
+
   <script>
     (async () => {
-      const response = await fetch('http://localhost:3000/desa/v1/products')
+      const response = await fetch('http://localhost:3000/api')
       const data = await response.json()
       console.log(data)
     })();

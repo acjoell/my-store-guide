@@ -1,5 +1,7 @@
 const express = require("express");
 const CategoriesService = require("./../services/categories.service");
+const validatorHandler = require('./../middlewares/validator.handler')
+const { createCategorySchema, updateCategorySchema, getCategorySchema } = require('./../schemas/category.schema')
 
 const router = express.Router();
 const service = new CategoriesService();
@@ -10,18 +12,26 @@ router.get("/", async (req, res) => {
 });
 
 // /categories/:catId
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const category = await service.findOne(id);
-
-  if (category) {
-    res.json(category);
-  } else {
-    res.status(404).json({ message: "Category not found" });
+router.get("/:id", 
+  validatorHandler(getCategorySchema, 'params'),
+  async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const category = await service.findOne(id);
+  
+    if (category) {
+      res.json(category);
+    } else {
+      res.status(404).json({ message: "Category not found" });
+    }
+  } catch (error) {
+    next(error)
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", 
+  validatorHandler(createCategorySchema, 'body'),
+  async (req, res) => {
   const body = req.body;
   const category = await service.create(body);
 
@@ -31,7 +41,10 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", 
+  validatorHandler(getCategorySchema, 'params'),
+  validatorHandler(updateCategorySchema, 'body'),
+  async (req, res, next) => {
   try {
     const { id } = req.params;
     const body = req.body;
@@ -42,13 +55,13 @@ router.patch("/:id", async (req, res) => {
       data: category,
     });
   } catch (error) {
-    res.json({
-      message: error.message,
-    });
+    next(error)
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", 
+  validatorHandler(getCategorySchema, 'params'),
+  async (req, res) => {
   const { id } = req.params;
   const action = await service.delete(id);
   res.json(action);

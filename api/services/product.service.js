@@ -22,7 +22,6 @@ class ProductsService {
 
   async create(data) {
     const newOne = {
-      //id:     faker.string.nanoid(6),
       id:     faker.string.uuid(),
       ...data
     }

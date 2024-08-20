@@ -3,8 +3,7 @@ const pRouter = require('./products.router');
 const cRouter = require('./categories.router');
 const uRouter = require('./users.router');
 
-const version = 'v1'
-const parentRoute = `/desa/${version}`
+const parentRoute = `/api`
 
 const routerAPI = app => {
   // generamos un path global para los endpoints
