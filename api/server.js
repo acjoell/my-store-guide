@@ -23,7 +23,7 @@ const options = {
 }
 APP.use(cors(options))
 
-APP.get('/', (req, res) => {
+APP.get('/api', (req, res) => {
   res.send('Hola mundo')
 })
 

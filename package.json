@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "module": "index.js",
   "scripts": {
-    "dev": "node --env-file .env --watch server.js",
-    "start": "node server.js",
+    "dev": "node --env-file .env --watch api/server.js",
+    "start": "node api/server.js",
     "lint": "bun oxlint"
   },
   "devDependencies": {
