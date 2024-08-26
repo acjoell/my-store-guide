@@ -120,18 +120,6 @@ out
 .nuxt
 dist
 
-# Gatsby files
-
-# Comment in the public line in if your project uses Gatsby and not Next.js
-
-# https://nextjs.org/blog/next-9-1#public-directory-support
-
-# publicrepositories 
-
-# vuepress build output
-
-.vuepress/dist
-
 # vuepress v2.x temp and cache directory
 
 .temp
@@ -148,9 +136,9 @@ dist
 
 .fusebox/
 
-# DynamoDB Local files
+# PostgresDB Local files
 
-.dynamodb/
+db/
 
 # TernJS port file
 
