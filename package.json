@@ -2,6 +2,7 @@
   "name": "my-store",
   "version": "1.0.0",
   "module": "index.js",
+  "description": "Store base with an API-Rest",
   "scripts": {
     "dev": "node --env-file .env --watch api/server.js",
     "start": "node api/server.js",
