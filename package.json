@@ -7,14 +7,11 @@
     "dev": "node --env-file .env --watch api/server.js",
     "start": "node api/server.js",
     "lint": "bun oxlint",
-
     "db:up": "sudo docker compose --env-file ./.env up -d postgres",
     "pg:up": "sudo docker compose up -d pgadmin",
     "dev:up": "sudo docker compose  --env-file ./.env up -d",
-
     "docker:ls": "sudo docker compose ps",
     "db:run": "sudo docker compose exec postgres bash",
-
     "db:dw": "sudo docker compose down postgres",
     "pg:dw": "sudo docker compose down pgadmin",
     "dev:dw": "sudo docker compose down"
@@ -24,5 +21,14 @@
     "oxlint": "0.4.4",
     "prettier": "3.3.2"
   },
-  "dependencies": { "@hapi/boom": "^10.0.1", "cors": "^2.8.5", "express": "4.19.2", "joi": "^17.13.3", "path": "^0.12.7", "pg": "^8.12.0" }
+  "dependencies": {
+    "@hapi/boom": "10.0.1",
+    "cors": "2.8.5",
+    "express": "4.19.2",
+    "joi": "17.13.3",
+    "path": "0.12.7",
+    "pg": "8.12.0",
+    "pg-hstore": "2.3.4",
+    "sequelize": "6.37.3"
+  }
 }
