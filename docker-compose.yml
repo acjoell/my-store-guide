@@ -1,9 +1,9 @@
 services:
     postgres:
-      image: ${PG_APP}
+      image: postgres
       #restart: always
       ports:
-        - ${PORT_SQL}:${PORT_SQL}
+        - ${PG_PORT}:5342
       environment:
         POSTGRES_DB: ${PG_NAME}
         POSTGRES_USER: ${PG_USER}
@@ -17,4 +17,8 @@ services:
         PGADMIN_DEFAULT_EMAIL: ${PG_EMAIL}
         PGADMIN_DEFAULT_PASSWORD: ${PG_PWEMAIL}
       ports:
-        - ${PG_PORT}
+        - ${PORT_SQL}:80
+      depends_on:
+        - postgres
+      volumes:
+        - ./pgadmin:/var/lib/pgadmin
