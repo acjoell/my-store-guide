@@ -1,13 +1,11 @@
 const { faker } = require("@faker-js/faker");
 const Boom = require('@hapi/boom')
-const pool = require('./../libs/postgres.pool')
+const { models } = require('./../libs/sequelize')
 
 class CategoriesService {
   constructor() {
     this.categories = [];
     this.generate();
-    this.pool = pool
-    this.pool.on('error', (err) => console.log(err))
   }
 
   generate() {
@@ -21,24 +19,17 @@ class CategoriesService {
   }
 
   async create(data) {
-    const newOne = {
-      id: faker.string.nanoid(6),
-      ...data,
-      image: faker.image.url(),
-    };
-
-    this.categories.push(newOne);
+    const newOne = await models.Category.create(data)
     return newOne;
   }
 
   async find() {
-    const query = 'SELECT * FROM public.tasks'
-    const response = await this.pool.query(query)
-    return response.rows
+    const response = await models.Category.findAll()
+    return response
   }
 
   async findOne(id) {
-    const category = this.categories.find((item) => item.id === id);
+    const category = await models.Category.findByPk(id)
     if(!category){
       throw Boom.notFound('Category Not Found')
     }
@@ -47,29 +38,15 @@ class CategoriesService {
   }
 
   async update(id, changes) {
-    const index = this.categories.findIndex((item) => item.id === id);
-    
-    if (index === -1) {
-      throw Boom.notFound('Category Not Found')
-    }
-
-    const category = this.categories[index];
-    this.categories[index] = {
-      ...category,
-      ...changes,
-    };
-
-    return this.categories[index];
+    const category = await this.findOne(id)
+    const response = await category.update(changes)
+    return response
   }
 
   async delete(id) {
-    const index = this.categories.findIndex((item) => item.id === id);
-    if (index === -1) {
-      throw Boom.notFound('Category Not Found')
-    }
-
-    this.categories.splice(index, 1);
-    return { id, message: "category deleted" };
+    const category = await this.findOne(id)
+    await category.destroy()
+    return { id, message: "Category deleted" };
   }
 }
 

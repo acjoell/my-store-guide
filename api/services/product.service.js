@@ -1,6 +1,6 @@
 const { faker } = require('@faker-js/faker')
 const Boom = require('@hapi/boom')
-const sequelize = require('./../libs/sequelize')
+const { models } = require('./../libs/sequelize')
 
 class ProductsService {
   constructor() {
@@ -22,22 +22,17 @@ class ProductsService {
   }
 
   async create(data) {
-    const newOne = {
-      id:     faker.string.uuid(),
-      ...data
-    }
-    this.products.push(newOne)
+    const newOne = await models.Product.create(data)
     return newOne
   }
 
   async find() {
-    const query = 'SELECT * FROM public.tasks'
-    const [ data ] = await sequelize.query(query)
-    return data
+    const response = await models.Product.findAll()
+    return response
   }
 
   async findOne(id) {
-    const product = this.products.find(item => item.id === id)
+    const product = await models.Product.findByPk(id)
     if(!product){
       throw Boom.notFound('Product Not Found')
     }
@@ -50,30 +45,15 @@ class ProductsService {
   }
 
   async update(id, changes) {
-    const index = this.products.findIndex(item => item.id === id)
-    
-    if(index === -1) {
-      throw Boom.notFound('Product Not Found')
-    }
-
-    const product = this.products[index]
-
-    this.products[index] = {
-      ...product,
-      ...changes
-    }
-
-    return this.products[index]
+    const product = await this.findOne(id)
+    const response = await product.update(changes)
+    return response
   }
 
   async delete(id) {
-    const index = this.products.findIndex(item => item.id === id)
-    if(index === -1) {
-      throw Boom.notFound('Product Not Found')
-    }
-
-    this.products.splice(index, 1)
-    return { id, message: 'product deleted' }
+    const product = await this.findOne(id)
+    await product.destroy()
+    return { id, message: "Product deleted" };
   }
 }
 
