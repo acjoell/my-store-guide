@@ -19,7 +19,8 @@
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
     "oxlint": "0.4.4",
-    "prettier": "3.3.2"
+    "prettier": "3.3.2",
+    "sequelize-cli": "^6.6.2"
   },
   "dependencies": {
     "@hapi/boom": "10.0.1",

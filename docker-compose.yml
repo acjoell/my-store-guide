@@ -10,7 +10,7 @@ services:
         POSTGRES_PASSWORD: ${PG_PASSWORD}
       env_file: ./.env
       volumes:
-          - ./db:/var/lib/postgresql/data
+          - ./dbadmin:/var/lib/postgresql/data
     pgadmin:
       image: dpage/pgadmin4
       environment:
