@@ -7,6 +7,7 @@
     "dev": "node --env-file .env --watch api/server.js",
     "start": "node api/server.js",
     "lint": "bun oxlint",
+    
     "db:up": "sudo docker compose --env-file ./.env up -d postgres",
     "pg:up": "sudo docker compose up -d pgadmin",
     "dev:up": "sudo docker compose  --env-file ./.env up -d",
@@ -14,7 +15,12 @@
     "db:run": "sudo docker compose exec postgres bash",
     "db:dw": "sudo docker compose down postgres",
     "pg:dw": "sudo docker compose down pgadmin",
-    "dev:dw": "sudo docker compose down"
+    "dev:dw": "sudo docker compose down",
+
+    "migrations:generate": "sequelize-cli migration:generate --name",
+    "migrations:run": "sequelize-cli db:migrate",
+    "migrations:revert": "sequelize-cli db:migrate:undo",
+    "migrations:delete": "sequelize-cli db:migrate:undo:all"
   },
   "devDependencies": {
     "@faker-js/faker": "8.4.1",
