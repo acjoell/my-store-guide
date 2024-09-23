@@ -11,9 +11,9 @@ const routerAPI = app => {
   app.use(parentRoute, router)
 
   // /desa/ver.../...
+  router.use('/users', uRouter)
   router.use('/products', pRouter)
   router.use('/categories', cRouter)
-  router.use('/users', uRouter)
 }
 
 module.exports = routerAPI

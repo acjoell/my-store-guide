@@ -13,12 +13,4 @@ const sequelize = new Sequelize(URI, {
 
 setupModels(sequelize)
 
-sequelize.sync()
-  .then(() => {
-    console.log('Database & tables created!');
-  })
-  .catch(err => {
-    console.error('Error creating tables:', err);
-  });
-
 module.exports = sequelize
